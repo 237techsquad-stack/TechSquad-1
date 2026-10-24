@@ -27,6 +27,15 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
+
   return (
     <header
       className={cn(
@@ -78,7 +87,10 @@ export function Header() {
           </div>
 
           <button
-            aria-label="Toggle menu"
+            type="button"
+            aria-label={t("toggleMenu")}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
             onClick={() => setOpen((v) => !v)}
             className="grid h-10 w-10 place-items-center rounded-full glass md:hidden"
           >
@@ -87,7 +99,7 @@ export function Header() {
         </div>
 
         {open && (
-          <div className="glass mt-2 rounded-3xl p-4 shadow-elegant md:hidden">
+          <div id="mobile-navigation" className="glass mt-2 rounded-3xl p-4 shadow-elegant md:hidden">
             <nav className="flex flex-col gap-1">
               {links.map((l) => (
                 <Link
@@ -105,7 +117,7 @@ export function Header() {
                 onClick={() => setLanguage(language === "en" ? "fr" : "en")}
                 className="mt-2 rounded-full border border-brand-blue/20 px-5 py-3 text-center text-sm font-bold text-brand-navy"
               >
-                {language === "en" ? "Francais" : "English"}
+                {language === "en" ? t("languageFrench") : t("languageEnglish")}
               </button>
               <Link
                 to="/contact"

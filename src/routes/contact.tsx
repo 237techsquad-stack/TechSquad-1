@@ -7,7 +7,7 @@ import { AmbientBackground } from "@/components/site/AmbientBackground";
 import { Reveal, ScrambleText, Stagger } from "@/components/animations/Reveal";
 import { Plus, Check, Mail, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { usePreferences } from "@/lib/preferences";
+import { usePreferences, useT } from "@/lib/preferences";
 import { buildPageHead, DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
@@ -58,41 +58,34 @@ const contactCopy = {
     kicker: "Contact",
     title: "Construisons quelque chose",
     focus: "d'utile ensemble.",
-    intro: "Envoyez un message pour un projet, un partenariat ou LaneForge. Le formulaire est connecte a Formspree.",
+    intro: "Écrivez-nous au sujet d’un projet, d’un partenariat ou de LaneForge. Le formulaire est relié à Formspree.",
     faqLabel: "FAQ",
-    faqTitle: "Avant d'ecrire",
+    faqTitle: "Avant de nous écrire",
     faqs: [
-      { q: "Que construit TECHSQUAD?", a: "Nous construisons des solutions logicielles pratiques, des plateformes web, des systemes de marque et des produits numeriques pour etudiants comme LaneForge." },
-      { q: "Puis-je contacter TECHSQUAD pour un projet client?", a: "Oui. L'equipe fournit deja des services clients pendant la preparation du lancement de LaneForge." },
-      { q: "Qu'est-ce que LaneForge?", a: "LaneForge est une plateforme de carriere qui guide les jeunes et les etudiants vers des carrieres adaptees et de vraies competences." },
-      { q: "Ou est base TECHSQUAD?", a: "TECHSQUAD Cameroon a commence comme initiative etudiante a VISHI Higher Institute et se concentre sur l'avenir numerique de l'Afrique." },
+      { q: "Que crée TECHSQUAD ?", a: "Nous réalisons des solutions logicielles pratiques, des plateformes web, des identités de marque et des produits numériques pour les étudiants, comme LaneForge." },
+      { q: "Puis-je contacter TECHSQUAD pour un projet client ?", a: "Oui. L’équipe propose déjà ses services à des clients tout en préparant le lancement de LaneForge." },
+      { q: "Qu’est-ce que LaneForge ?", a: "LaneForge est une plateforme d’orientation professionnelle qui aide les jeunes et les étudiants à trouver un parcours adapté et à acquérir de vraies compétences." },
+      { q: "Où se trouve TECHSQUAD ?", a: "TECHSQUAD Cameroon est née d’une initiative étudiante à VISHI Higher Institute et contribue à l’avenir numérique de l’Afrique." },
     ],
     location: "Localisation",
-    messageReceived: "Message recu",
+    messageReceived: "Message reçu",
     thanks: "Merci",
-    reply: "TECHSQUAD repondra des que possible.",
+    reply: "TECHSQUAD répondra dès que possible.",
     another: "Envoyer un autre message",
     name: "Votre nom",
-    email: "Email",
-    subject: "Sujet",
-    details: "Details du projet",
-    sending: "Envoi...",
+    email: "Adresse e-mail",
+    subject: "Objet",
+    details: "Détails du projet",
+    sending: "Envoi en cours…",
     send: "Envoyer le message",
-    helper: "Les soumissions passent par le endpoint Formspree mdarqjge.",
-    serverError: "Le message n'a pas pu etre envoye. Veuillez reessayer dans un moment.",
+    helper: "Les messages sont transmis via le formulaire Formspree (mdarqjge).",
+    serverError: "Votre message n’a pas pu être envoyé. Veuillez réessayer dans quelques instants.",
   },
 } as const;
 
-const schema = z.object({
-  name: z.string().trim().min(2, "Please enter your name").max(80),
-  email: z.string().trim().email("Enter a valid email").max(160),
-  subject: z.string().trim().min(3, "Give it a subject").max(120),
-  details: z.string().trim().min(20, "Tell us a little more (20+ chars)").max(2000),
-  company: z.string().max(0).optional(),
-});
-
 function ContactPage() {
   const { language } = usePreferences();
+  const t = useT();
   const text = contactCopy[language];
   const [open, setOpen] = useState<number | null>(0);
   const [form, setForm] = useState({ name: "", email: "", subject: "", details: "", company: "" });
@@ -103,7 +96,16 @@ function ContactPage() {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const result = schema.safeParse(form);
+    const result = createContactSchema({
+      invalidName: t("invalidName"),
+      nameTooLong: t("nameTooLong"),
+      invalidEmail: t("invalidEmail"),
+      emailTooLong: t("emailTooLong"),
+      invalidSubject: t("invalidSubject"),
+      subjectTooLong: t("subjectTooLong"),
+      invalidDetails: t("invalidDetails"),
+      detailsTooLong: t("detailsTooLong"),
+    }).safeParse(form);
     if (!result.success) {
       const flat: Record<string, string> = {};
       for (const issue of result.error.issues) flat[issue.path[0] as string] = issue.message;
@@ -176,6 +178,8 @@ function ContactPage() {
                 >
                   <button
                     type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${i}`}
                     onClick={() => setOpen(isOpen ? null : i)}
                     className="flex w-full items-center justify-between gap-4 py-5 text-left"
                   >
@@ -187,10 +191,13 @@ function ContactPage() {
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
+                        id={`faq-answer-${i}`}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        role="region"
+                        aria-label={f.q}
                         className="overflow-hidden"
                       >
                         <p className="pb-5 pr-12 text-sm leading-6 text-white/68">{f.a}</p>
@@ -206,7 +213,7 @@ function ContactPage() {
             <div className="flex items-start gap-3">
               <Mail className="mt-0.5 h-4 w-4 text-[#35b7ff]" />
               <div>
-                <div className="text-xs text-white/50">Email</div>
+                <div className="text-xs text-white/50">{t("emailAddress")}</div>
                 <div className="text-sm font-semibold">techsquadcameroon@gmail.com</div>
               </div>
             </div>
@@ -214,7 +221,7 @@ function ContactPage() {
               <MapPin className="mt-0.5 h-4 w-4 text-[#35b7ff]" />
               <div>
                 <div className="text-xs text-white/50">{text.location}</div>
-                <div className="text-sm font-semibold">Cameroon</div>
+                <div className="text-sm font-semibold">{t("countryName")}</div>
               </div>
             </div>
           </div>
@@ -271,7 +278,7 @@ function ContactPage() {
                     name="company"
                     className="absolute -left-[9999px] h-0 w-0 opacity-0"
                   />
-                  {serverError && <p className="text-sm text-destructive">{serverError}</p>}
+                  {serverError && <p role="alert" className="text-sm text-destructive">{serverError}</p>}
                   <button
                     type="submit"
                     disabled={submitting}
@@ -291,6 +298,25 @@ function ContactPage() {
       </section>
     </SiteLayout>
   );
+}
+
+function createContactSchema(messages: {
+  invalidName: string;
+  nameTooLong: string;
+  invalidEmail: string;
+  emailTooLong: string;
+  invalidSubject: string;
+  subjectTooLong: string;
+  invalidDetails: string;
+  detailsTooLong: string;
+}) {
+  return z.object({
+    name: z.string().trim().min(2, messages.invalidName).max(80, messages.nameTooLong),
+    email: z.string().trim().email(messages.invalidEmail).max(160, messages.emailTooLong),
+    subject: z.string().trim().min(3, messages.invalidSubject).max(120, messages.subjectTooLong),
+    details: z.string().trim().min(20, messages.invalidDetails).max(2000, messages.detailsTooLong),
+    company: z.string().max(0).optional(),
+  });
 }
 
 function FloatField({
@@ -319,14 +345,14 @@ function FloatField({
   return (
     <label className="relative block">
       {textarea ? (
-        <textarea name={name} rows={5} value={value} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onChange={(e) => onChange(e.target.value)} className={commonClasses} />
+        <textarea id={name} name={name} aria-label={label} aria-invalid={Boolean(error)} aria-describedby={error ? `${name}-error` : undefined} rows={5} value={value} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onChange={(e) => onChange(e.target.value)} className={commonClasses} />
       ) : (
-        <input name={name} type={type} value={value} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onChange={(e) => onChange(e.target.value)} className={commonClasses} />
+        <input id={name} name={name} type={type} aria-label={label} aria-invalid={Boolean(error)} aria-describedby={error ? `${name}-error` : undefined} value={value} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onChange={(e) => onChange(e.target.value)} className={commonClasses} />
       )}
       <span className={cn("pointer-events-none absolute left-4 origin-left transition-all duration-200", active ? "top-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-pink" : "top-4 text-sm text-muted-foreground")}>
         {label}
       </span>
-      {error && <span className="mt-1 block text-xs text-destructive">{error}</span>}
+      {error && <span id={`${name}-error`} className="mt-1 block text-xs text-destructive">{error}</span>}
     </label>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { usePreferences } from "@/lib/preferences";
 
 type Particle = { x: number; y: number; vx: number; vy: number; r: number; c: string };
 
@@ -9,14 +10,14 @@ const COLORS = [
 ];
 
 export function ParticleCanvas() {
+  const { effectiveReduceMotion } = usePreferences();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: -9999, y: -9999 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) return;
+    if (effectiveReduceMotion) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     let raf = 0;
@@ -119,7 +120,7 @@ export function ParticleCanvas() {
       window.removeEventListener("mousemove", onMouse);
       canvas.removeEventListener("mouseleave", onLeave);
     };
-  }, []);
+  }, [effectiveReduceMotion]);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />;
+  return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />;
 }

@@ -1,4 +1,5 @@
 import { ArrowUp } from "lucide-react";
+import { useT } from "@/lib/preferences";
 
 function WhatsAppIcon() {
   return (
@@ -9,23 +10,24 @@ function WhatsAppIcon() {
 }
 
 export function FloatingActions() {
+  const t = useT();
   return (
     <>
       <a
         href="https://wa.me/237670344034"
         target="_blank"
         rel="noreferrer"
-        aria-label="Chat with TECHSQUAD on WhatsApp"
+        aria-label={t("chatWithTechSquad")}
         className="group fixed bottom-6 right-6 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_16px_34px_rgba(7,23,51,0.24)] ring-4 ring-white/80 transition-all hover:w-56 hover:justify-start hover:gap-3 hover:px-5 hover:shadow-[0_20px_42px_rgba(7,23,51,0.3)]"
       >
         <WhatsAppIcon />
         <span className="hidden whitespace-nowrap text-sm font-bold group-hover:inline">
-          Chat with us on WhatsApp
+          {t("chatWithUs")}
         </span>
       </a>
       <button
         type="button"
-        aria-label="Scroll to top"
+        aria-label={t("scrollToTop")}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className="fixed bottom-6 left-6 z-[60] grid h-12 w-12 place-items-center rounded-full border border-border bg-card/90 text-primary shadow-glass backdrop-blur transition-transform hover:-translate-y-1 hover:text-pink"
       >

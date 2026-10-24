@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useT } from "@/lib/preferences";
 
 const TARGET_MS = 1000 * 60 * 60 * 24 * 47;
 
 export function CountdownTimer() {
+  const t = useT();
   const [target] = useState(() => Date.now() + TARGET_MS);
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
@@ -15,10 +17,10 @@ export function CountdownTimer() {
   const mins = Math.floor((diff / 60_000) % 60);
   const secs = Math.floor((diff / 1000) % 60);
   const items: Array<[string, number]> = [
-    ["Days", days],
-    ["Hours", hours],
-    ["Minutes", mins],
-    ["Seconds", secs],
+    [t("countdownDays"), days],
+    [t("countdownHours"), hours],
+    [t("countdownMinutes"), mins],
+    [t("countdownSeconds"), secs],
   ];
   return (
     <div className="grid grid-cols-4 gap-3 sm:gap-4">

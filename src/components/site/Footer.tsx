@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Facebook, Linkedin, Mail } from "lucide-react";
-import { BrandLogo } from "./BrandLogo";
+import footerLogo from "../../../images/logo images/TechSquad Cameroon Logo.png";
+import { useT } from "@/lib/preferences";
 
 const socials = [
   { icon: Mail, href: "mailto:techsquadcameroon@gmail.com", label: "Gmail" },
@@ -9,15 +10,21 @@ const socials = [
 ];
 
 export function Footer() {
+  const t = useT();
   return (
     <footer className="relative mt-24 overflow-hidden border-t border-border/60 bg-background">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[80%] -translate-x-1/2 rounded-full bg-gradient-hero opacity-10 blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 md:grid-cols-4">
         <div className="md:col-span-2">
-          <BrandLogo />
+          <Link to="/" className="inline-flex max-w-full">
+            <img
+              src={footerLogo}
+              alt={t("logoAlt")}
+              className="h-auto w-64 max-w-full object-contain object-left"
+            />
+          </Link>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            TECHSQUAD Cameroon empowers Africa's digital future by building software infrastructure,
-            training young talent, and launching practical solutions like LaneForge.
+            {t("footerDescription")}
           </p>
           <div className="mt-6 flex items-center gap-2">
             {socials.map(({ icon: Icon, href, label }) => (
@@ -36,13 +43,13 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold text-foreground">Explore</h4>
+          <h4 className="text-sm font-semibold text-foreground">{t("explore")}</h4>
           <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
             {[
-              ["About", "/about"],
-              ["Services", "/services"],
-              ["Projects", "/projects"],
-              ["Team", "/members"],
+              [t("about"), "/about"],
+              [t("services"), "/services"],
+              [t("projects"), "/projects"],
+              [t("team"), "/members"],
             ].map(([label, to]) => (
               <li key={to}>
                 <Link to={to} className="inline-flex items-center gap-1 transition-colors hover:text-pink">
@@ -54,25 +61,25 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold text-foreground">Contact</h4>
+          <h4 className="text-sm font-semibold text-foreground">{t("contactHeading")}</h4>
           <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
             <li>techsquadcameroon@gmail.com</li>
-            <li>WhatsApp: 670344034</li>
-            <li>Cameroon</li>
-            <li>VISHI Higher Institute roots</li>
+            <li>{t("whatsappLabel")}: 670344034</li>
+            <li>{t("countryName")}</li>
+            <li>{t("institutionRoots")}</li>
           </ul>
           <Link
             to="/contact"
             className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-pink"
           >
-            Start a project <ArrowUpRight className="h-4 w-4" />
+            {t("startProject")} <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
       <div className="border-t border-border/60">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} TECHSQUAD Cameroon. All rights reserved.</p>
-          <p>Empowering Africa's digital future.</p>
+          <p>© {new Date().getFullYear()} TECHSQUAD Cameroon. {t("allRightsReserved")}</p>
+          <p>{t("footerTagline")}</p>
         </div>
       </div>
     </footer>

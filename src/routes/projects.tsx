@@ -94,47 +94,51 @@ const copy = {
     intro: "From LaneForge to client services and community events, these are the initiatives shaping the team.",
     github: "GitHub",
     liveDemo: "Live Demo",
+    previewAlt: "project preview",
+    launchingSoon: "Launching soon",
   },
   fr: {
     kicker: "Projets",
     titlePrefix: "Ce que TECHSQUAD ",
     titleFocus: "construit maintenant.",
-    intro: "De LaneForge aux services clients et aux evenements communautaires, voici les initiatives qui faconnent l'equipe.",
+    intro: "De LaneForge aux services clients et aux événements communautaires, voici les initiatives qui font avancer l’équipe.",
     github: "GitHub",
-    liveDemo: "Demo live",
+    liveDemo: "Démo en direct",
+    previewAlt: "aperçu du projet",
+    launchingSoon: "Lancement prochain",
   },
 } as const;
 
 const frenchProjects = [
   {
-    title: "E-commerce Website",
+    title: "Site de commerce en ligne",
     category: "Boutique en ligne",
-    summary: "Une experience d'achat soignee avec navigation produit, panier et sections responsive.",
+    summary: "Une expérience d’achat soignée avec navigation parmi les produits, panier et pages adaptées aux mobiles.",
     stack: ["HTML", "CSS", "UI/UX"],
   },
   {
-    title: "Pharmacy Management System",
-    category: "Tableau medical",
-    summary: "Un tableau de bord pratique pour suivre les dossiers, l'inventaire et les flux de travail de pharmacie.",
-    stack: ["Productivite", "Sante", "Dashboard"],
+    title: "Système de gestion de pharmacie",
+    category: "Tableau de bord médical",
+    summary: "Un tableau de bord pratique pour suivre les dossiers, les stocks et les activités quotidiennes d’une pharmacie.",
+    stack: ["Productivité", "Santé", "Tableau de bord"],
   },
   {
-    title: "Hotel Management System",
-    category: "Tableau d'operations",
-    summary: "Une interface de gestion hoteliere pour organiser les operations et afficher les informations de reservation clairement.",
-    stack: ["Operations", "Dashboard", "UI/UX"],
+    title: "Système de gestion hôtelière",
+    category: "Tableau de bord des opérations",
+    summary: "Une interface de gestion hôtelière qui facilite les opérations et présente clairement les informations de réservation.",
+    stack: ["Opérations", "Tableau de bord", "UI/UX"],
   },
   {
-    title: "Portfolio Website",
+    title: "Site portfolio",
     category: "Vitrine personnelle",
-    summary: "Une presentation de portfolio claire qui met en avant le travail, l'identite et la presence digitale.",
-    stack: ["Portfolio", "Branding", "Web design"],
+    summary: "Un portfolio clair qui met en valeur le travail, l’identité et la présence numérique.",
+    stack: ["Portfolio", "Image de marque", "Conception web"],
   },
   {
     title: "LaneForge",
-    category: "Plateforme de carriere",
-    summary: "Une plateforme qui guide les jeunes et les etudiants vers des carrieres adaptees et les aide a developper de vraies competences.",
-    stack: ["Orientation", "Competences", "Plateforme"],
+    category: "Plateforme d’orientation professionnelle",
+    summary: "Une plateforme qui aide les jeunes et les étudiants à trouver des parcours professionnels adaptés et à acquérir de vraies compétences.",
+    stack: ["Orientation", "Compétences", "Plateforme"],
   },
 ] as const;
 
@@ -179,7 +183,7 @@ function ProjectsPage() {
                 <div className={`relative shrink-0 overflow-hidden bg-[#070b12] ${p.imageClass}`}>
                   <img
                     src={p.image}
-                    alt={`${p.title} project preview`}
+                    alt={`${p.title} ${text.previewAlt}`}
                     loading="lazy"
                     className="h-full w-full object-cover opacity-100 transition-transform duration-500 group-hover:scale-[1.03]"
                   />
@@ -188,7 +192,9 @@ function ProjectsPage() {
                 <div className="flex h-full min-h-0 flex-1 flex-col border-t border-white/8 bg-[#0b1018] p-4 md:p-5">
                   <div className="flex items-center justify-between gap-4">
                     <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-brand-sky">{p.category}</span>
-                    <span className="text-xs font-semibold text-white/55">{p.year}</span>
+                    <span className="text-xs font-semibold text-white/55">
+                      {p.year === "Launching soon" ? text.launchingSoon : p.year}
+                    </span>
                   </div>
                   <h3 className="mt-2 text-lg font-bold text-white sm:text-xl">{p.title}</h3>
                   <p className="mt-2 min-h-[4.5rem] text-sm leading-5 text-white/68">{p.summary}</p>

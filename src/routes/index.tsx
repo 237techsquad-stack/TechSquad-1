@@ -78,8 +78,6 @@ const terminalLines = [
 const homeCopy = {
   en: {
     badge: "LaneForge is launching soon",
-    heroLead: "Empowering ",
-    heroFocus: "Africa's digital future.",
     intro: "TECHSQUAD Cameroon is a student-born tech team building software solutions, strengthening young builders, and preparing LaneForge to guide students toward careers that fit them.",
     story: "Our story",
     stats: ["Started at VISHI", "Core members", "Months to LaneForge", "Africa-focused"],
@@ -98,61 +96,87 @@ const homeCopy = {
     learnMore: "Learn more",
     earlyAccess: "Get early access",
     userBase: "Building a student user base before launch",
+    heroTitle: "TechSquad Cameroon - Your Tech Partner in",
+    heroLocation: "Douala",
+    purposeLabel: "Who we are",
+    purposeTitleStart: "Technology that helps",
+    purposeTitlePlace: "Cameroon",
+    purposeTitleEnd: "move forward",
+    purposeIllustration: "Useful digital systems, built with people in mind.",
+    purposeQuote: "Turn everyday challenges into useful digital systems.",
+    purposeParagraphs: [
+      "TechSquad Cameroon is a practical technology partner for people, organizations, and growing businesses in Douala and across Cameroon. We combine web development, software engineering, IT support, digital design, and technical training to turn everyday challenges into useful digital systems. Our team builds responsive websites, business platforms, internal tools, and mobile-first experiences that are clear for customers and manageable for the teams who use them.",
+      "A strong online presence is more than a page with a logo. It should explain what a business offers, help customers take action, and give owners a dependable way to manage information. Our web development process begins with the real needs of a Cameroon-based business, then moves through planning, interface design, implementation, testing, and deployment. We also support teams that need help improving an existing website, organizing their digital workflow, or choosing technology that fits their budget and goals.",
+      "TechSquad also invests in people. Through training, mentorship, and collaborative projects, young developers and designers learn by working on real software solutions. From Douala to the wider African technology community, our mission is to make digital skills more accessible and help ambitious teams build with confidence. Whether you need a new website, IT guidance, software development, or a trusted technology team for your next project, TechSquad Cameroon is ready to build something useful with you.",
+    ],
+    emailPlaceholder: "you@email.com",
   },
   fr: {
-    badge: "LaneForge sera bientot lance",
-    heroLead: "Renforcer ",
-    heroFocus: "l'avenir numerique de l'Afrique.",
-    intro: "TECHSQUAD Cameroon est une equipe tech nee d'etudiants qui construit des solutions logicielles, renforce de jeunes talents et prepare LaneForge pour guider les etudiants vers des carrieres adaptees.",
+    badge: "LaneForge sera bientôt lancé",
+    intro: "TECHSQUAD Cameroon est une équipe technologique née d’une initiative étudiante. Elle crée des solutions logicielles, accompagne de jeunes talents et prépare LaneForge, une plateforme qui aide les étudiants à choisir un parcours professionnel adapté.",
     story: "Notre histoire",
-    stats: ["Debut a VISHI", "Membres principaux", "Mois avant LaneForge", "Centre sur l'Afrique"],
-    marquee: ["Genie logiciel", "LaneForge", "Competences numeriques", "Croissance de marque", "Innovation etudiante", "Cameroun"],
-    whatWeDo: "Ce que nous faisons",
-    serviceHeading: "Nous construisons, formons, marquons et lançons des solutions numeriques pratiques.",
+    stats: ["Créée à VISHI", "Membres principaux", "Mois avant LaneForge", "Tournée vers l’Afrique"],
+    marquee: ["Ingénierie logicielle", "LaneForge", "Compétences numériques", "Développement de marque", "Innovation étudiante", "Cameroun"],
+    whatWeDo: "Nos activités",
+    serviceHeading: "Nous concevons, formons, développons des marques et lançons des solutions numériques concrètes.",
     services: [
       {
         title: "Infrastructure logicielle",
-        body: "Nous concevons et construisons des plateformes web, des outils internes et des systemes numeriques pratiques pour aider les gens a travailler plus vite.",
-        bullets: ["Planification produit", "Developpement frontend et backend", "Systemes prets au deploiement"],
+        body: "Nous concevons des plateformes web, des outils internes et des systèmes numériques qui facilitent le travail au quotidien.",
+        bullets: ["Planification produit", "Développement front-end et back-end", "Systèmes prêts à être déployés"],
       },
       {
-        title: "Developpement web et application",
-        body: "Des plateformes pour etudiants aux sites clients, nous transformons les idees en logiciels utilisables avec des interfaces claires.",
-        bullets: ["Sites responsive", "Applications React", "Experiences mobile-first"],
+        title: "Développement web et applications",
+        body: "Des plateformes étudiantes aux sites clients, nous transformons les idées en logiciels pratiques dotés d’interfaces claires.",
+        bullets: ["Sites adaptés aux mobiles", "Applications React", "Expériences pensées pour le mobile"],
       },
       {
-        title: "Croissance de marque et contenu",
-        body: "TECHSQUAD aide les projets a paraitre credibles, communiquer clairement et atteindre les personnes visees.",
-        bullets: ["Identite de marque", "Design graphique", "Croissance sur les reseaux sociaux"],
+        title: "Développement de marque et contenu",
+        body: "TECHSQUAD aide les projets à gagner en crédibilité, à communiquer clairement et à atteindre leur public.",
+        bullets: ["Identité de marque", "Design graphique", "Développement sur les réseaux sociaux"],
       },
       {
         title: "Formation et collaboration",
-        body: "Nous construisons une culture d'equipe ou les jeunes builders apprennent en livrant de vraies solutions ensemble.",
-        bullets: ["Mentorat", "Projets d'equipe", "Preparation aux hackathons"],
+        body: "Nous développons une culture d’équipe où les jeunes apprennent en réalisant ensemble des solutions concrètes.",
+        bullets: ["Mentorat", "Projets d’équipe", "Préparation aux hackathons"],
       },
     ],
-    methodLabel: "Notre methode",
-    methodHeading: "Un chemin clair de l'idee a la solution fonctionnelle.",
-    methodIntro: "Notre processus est progressif et collaboratif: comprendre le probleme, prototyper vite, construire avec discipline, puis apprendre des vrais utilisateurs.",
+    methodLabel: "Notre méthode",
+    methodHeading: "Un parcours clair, de l’idée à une solution opérationnelle.",
+    methodIntro: "Notre démarche est progressive et collaborative : comprendre le problème, créer rapidement un prototype, construire avec rigueur, puis apprendre des retours des utilisateurs.",
     method: [
-      { step: "01", title: "Ecouter", body: "Nous commencons par le vrai probleme, les personnes concernees et leur contexte." },
-      { step: "02", title: "Prototyper", body: "Les idees deviennent rapidement des ecrans, des parcours et des tests techniques." },
-      { step: "03", title: "Construire", body: "Designers, developpeurs et leads croissance travaillent ensemble jusqu'a une solution utilisable." },
-      { step: "04", title: "Lancer et apprendre", body: "Nous publions, collectons les retours et continuons d'ameliorer l'impact." },
+      { step: "01", title: "Écouter", body: "Nous commençons par comprendre le problème, les personnes concernées et leur contexte." },
+      { step: "02", title: "Prototyper", body: "Les idées deviennent rapidement des écrans, des parcours et des essais techniques." },
+      { step: "03", title: "Construire", body: "Designers, développeurs et responsables du développement travaillent ensemble pour créer une solution utile." },
+      { step: "04", title: "Lancer et apprendre", body: "Nous mettons la solution en ligne, recueillons les retours et continuons à l’améliorer." },
     ],
-    comingSoon: "Bientot disponible",
-    meet: "Decouvrez",
-    laneForgeIntro: "Une plateforme de carriere qui guide les jeunes et les etudiants vers une voie adaptee et les aide a developper de vraies competences.",
-    notify: "Me prevenir au lancement",
+    comingSoon: "Bientôt disponible",
+    meet: "Découvrez",
+    laneForgeIntro: "Une plateforme d’orientation professionnelle qui aide les jeunes et les étudiants à trouver un parcours adapté et à acquérir de vraies compétences.",
+    notify: "Me prévenir au lancement",
     learnMore: "En savoir plus",
-    earlyAccess: "Acces anticipe",
-    userBase: "Construction d'une base d'utilisateurs etudiants avant le lancement",
+    earlyAccess: "Accès anticipé",
+    userBase: "Nous développons une communauté étudiante avant le lancement",
+    heroTitle: "TechSquad Cameroon - Votre partenaire technologique à",
+    heroLocation: "Douala",
+    purposeLabel: "Qui sommes-nous",
+    purposeTitleStart: "La technologie qui aide le",
+    purposeTitlePlace: "Cameroun",
+    purposeTitleEnd: "à avancer",
+    purposeIllustration: "Des solutions numériques utiles, pensées pour les personnes.",
+    purposeQuote: "Transformer les défis du quotidien en solutions numériques utiles.",
+    purposeParagraphs: [
+      "TechSquad Cameroon accompagne les particuliers, les organisations et les entreprises en développement à Douala et dans tout le Cameroun. Nous réunissons développement web, ingénierie logicielle, assistance informatique, design numérique et formation technique pour transformer les défis du quotidien en outils numériques utiles. Notre équipe crée des sites adaptatifs, des plateformes professionnelles, des outils internes et des expériences pensées pour le mobile, claires pour les clients et faciles à gérer par les équipes.",
+      "Une présence en ligne efficace ne se résume pas à une page avec un logo. Elle doit présenter clairement l’offre d’une entreprise, aider ses clients à agir et permettre à ses responsables de gérer l’information de façon fiable. Notre démarche de développement web part des besoins réels des entreprises camerounaises, puis passe par la planification, la conception d’interfaces, la réalisation, les tests et la mise en ligne. Nous aidons aussi les équipes à améliorer un site existant, à organiser leurs outils numériques ou à choisir des technologies adaptées à leur budget et à leurs objectifs.",
+      "TechSquad investit également dans les personnes. Grâce à la formation, au mentorat et aux projets collaboratifs, les jeunes développeurs et designers apprennent en réalisant de vraies solutions logicielles. De Douala à l’ensemble de la communauté technologique africaine, notre mission est de rendre les compétences numériques plus accessibles et d’aider les équipes ambitieuses à avancer avec confiance. Pour un nouveau site, des conseils informatiques, un logiciel ou une équipe de confiance pour votre prochain projet, TechSquad Cameroon est prête à construire avec vous une solution utile.",
+    ],
+    emailPlaceholder: "vous@exemple.com",
   },
 } as const;
 
 function Index() {
   const [openService, setOpenService] = useState(0);
-  const { language } = usePreferences();
+  const { language, effectiveReduceMotion } = usePreferences();
   const t = useT();
   const text = homeCopy[language];
 
@@ -184,8 +208,8 @@ function Index() {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="mt-6 max-w-4xl text-5xl font-bold leading-[1.02] tracking-normal sm:text-7xl md:text-[84px]"
             >
-              <span className="text-[#071733]">TechSquad Cameroon - Your Tech Partner in </span>
-              <span className="text-gradient-hero">Douala</span>
+              <span className="text-[#071733]">{text.heroTitle} </span>
+              <span className="text-gradient-hero">{text.heroLocation}</span>
             </motion.h1>
 
             <motion.p
@@ -353,19 +377,105 @@ function Index() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-4 pb-20">
-        <Reveal>
-          <h2 className="text-3xl font-bold tracking-normal sm:text-4xl">Technology that helps Cameroon move forward</h2>
-          <p className="mt-5 text-base leading-8 text-muted-foreground">
-            TechSquad Cameroon is a practical technology partner for people, organizations, and growing businesses in Douala and across Cameroon. We combine web development, software engineering, IT support, digital design, and technical training to turn everyday challenges into useful digital systems. Our team builds responsive websites, business platforms, internal tools, and mobile-first experiences that are clear for customers and manageable for the teams who use them.
-          </p>
-          <p className="mt-4 text-base leading-8 text-muted-foreground">
-            A strong online presence is more than a page with a logo. It should explain what a business offers, help customers take action, and give owners a dependable way to manage information. Our web development process begins with the real needs of a Cameroon-based business, then moves through planning, interface design, implementation, testing, and deployment. We also support teams that need help improving an existing website, organizing their digital workflow, or choosing technology that fits their budget and goals.
-          </p>
-          <p className="mt-4 text-base leading-8 text-muted-foreground">
-            TechSquad also invests in people. Through training, mentorship, and collaborative projects, young developers and designers learn by working on real software solutions. From Douala to the wider African technology community, our mission is to make digital skills more accessible and help ambitious teams build with confidence. Whether you need a new website, IT guidance, software development, or a trusted technology team for your next project, TechSquad Cameroon is ready to build something useful with you.
-          </p>
-        </Reveal>
+      <section className="mx-auto max-w-7xl px-4 pb-20">
+        <div className="relative isolate overflow-hidden rounded-[2rem] border border-slate-200/80 bg-gradient-to-br from-white via-[#f8fbff] to-[#edf5fb] p-6 shadow-sm sm:p-10 lg:p-14">
+          <div className="pointer-events-none absolute -right-16 -top-24 -z-10 h-72 w-72 rounded-full bg-[#35b7ff]/10 blur-3xl" />
+          <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
+            <Reveal className="flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">
+                {text.purposeLabel}
+              </p>
+              <h2 className="mt-4 max-w-xl text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl">
+                {text.purposeTitleStart}{" "}
+                <span className="text-primary">{text.purposeTitlePlace}</span>{" "}
+                <span className="text-[#c5a64f]">{text.purposeTitleEnd}</span>
+              </h2>
+              <div className="mt-8 flex items-center gap-4">
+                <svg
+                  viewBox="0 0 220 110"
+                  className="h-24 w-48 shrink-0 text-primary/70"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <motion.path
+                    d="M22 78 74 32l55 42 67-48M74 32l14 68m41-26 34 22"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeDasharray="4 5"
+                    initial={effectiveReduceMotion ? false : { pathLength: 0 }}
+                    whileInView={effectiveReduceMotion ? undefined : { pathLength: 1 }}
+                    viewport={{ once: true, amount: 0.8 }}
+                    transition={{ duration: 1.1, ease: "easeOut" }}
+                  />
+                  {[
+                    [22, 78],
+                    [74, 32],
+                    [88, 100],
+                    [129, 74],
+                    [163, 96],
+                    [196, 26],
+                  ].map(([cx, cy], index) => (
+                    <motion.circle
+                      key={`${cx}-${cy}`}
+                      cx={cx}
+                      cy={cy}
+                      r={index === 1 || index === 3 ? 5 : 3.5}
+                      fill={index === 4 ? "#c5a64f" : "currentColor"}
+                      initial={effectiveReduceMotion ? false : { scale: 0.65, opacity: 0.5 }}
+                      whileInView={effectiveReduceMotion ? undefined : { scale: 1, opacity: 1 }}
+                      viewport={{ once: true, amount: 0.8 }}
+                      transition={{ duration: 0.45, delay: index * 0.08 }}
+                    />
+                  ))}
+                </svg>
+                <p className="max-w-[13rem] text-sm font-semibold leading-6 text-slate-600">
+                  {text.purposeIllustration}
+                </p>
+              </div>
+              <blockquote className="mt-auto pt-8">
+                <div className="rounded-2xl border border-primary/10 bg-white/75 p-5 shadow-sm">
+                  <span className="text-3xl font-bold leading-none text-primary/70" aria-hidden="true">
+                    “
+                  </span>
+                  <p className="mt-1 text-lg font-semibold leading-7 text-slate-700">
+                    {text.purposeQuote}
+                  </p>
+                </div>
+              </blockquote>
+            </Reveal>
+
+            <div className="space-y-4">
+              {text.purposeParagraphs.map((paragraph, index) => (
+                <Reveal key={index} delay={0.05 + index * 0.1}>
+                  <article
+                    className={`relative ${
+                      index === 0
+                        ? "rounded-2xl border border-white bg-white/85 p-5 shadow-sm sm:p-6"
+                        : "border-l border-slate-200 py-2 pl-5 sm:pl-7"
+                    }`}
+                  >
+                    <span
+                      className={`absolute ${
+                        index === 0
+                          ? "bottom-5 left-0 top-5 w-1 rounded-r-full bg-primary"
+                          : `-left-[1px] top-3 h-8 w-px bg-gradient-to-b ${
+                              index === 1 ? "from-primary to-[#c5a64f]" : "from-[#c5a64f] to-primary"
+                            }`
+                      }`}
+                    />
+                    <p
+                      className={`text-base leading-8 sm:text-[1.05rem] ${
+                        index === 0 ? "pl-4 text-slate-700" : "text-slate-600"
+                      }`}
+                    >
+                      {paragraph}
+                    </p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="relative mx-auto max-w-7xl px-4 pb-24">
@@ -390,21 +500,19 @@ function Index() {
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100">
                   <Zap className="h-3.5 w-3.5" /> {text.comingSoon}
                 </div>
-                <div className="relative mt-5">
-                  <div className="absolute right-0 top-0 w-[220px] sm:w-[280px] lg:w-[360px]">
-                    <img
-                      src={laneForgeLogo}
-                      alt="LaneForge logo"
-                      loading="lazy"
-                      className="h-20 w-full object-contain sm:h-24 lg:h-28"
-                    />
-                  </div>
-                  <h2 className="max-w-[calc(100%-235px)] pr-3 text-5xl font-bold leading-[1.05] tracking-normal text-white sm:max-w-[calc(100%-300px)] sm:pr-6 sm:text-6xl">
+                <div className="mt-5 flex items-start gap-2 sm:gap-4">
+                  <h2 className="min-w-0 flex-1 text-2xl font-bold leading-[1.05] tracking-normal text-white sm:text-3xl md:text-4xl lg:text-6xl">
                     {text.meet}{" "}
                     <span className="text-[#d7bd66]">
                       <ScrambleText text="LaneForge" />
                     </span>
                   </h2>
+                  <img
+                    src={laneForgeLogo}
+                    alt={t("laneforgeLogoAlt")}
+                    loading="lazy"
+                    className="block h-auto w-[42%] min-w-[78px] max-w-[128px] shrink-0 lg:hidden"
+                  />
                 </div>
                 <p className="mt-5 max-w-lg text-lg text-white/70">
                   {text.laneForgeIntro}
@@ -427,7 +535,15 @@ function Index() {
               </div>
 
               <div id="waitlist">
-                <CountdownTimer />
+                <img
+                  src={laneForgeLogo}
+                  alt={t("laneforgeLogoAlt")}
+                  loading="lazy"
+                  className="mx-auto mb-3 hidden h-auto w-full max-w-[220px] lg:block"
+                />
+                <div className="mt-3 lg:mt-0">
+                  <CountdownTimer />
+                </div>
                 <form
                   onSubmit={(e) => e.preventDefault()}
                   className="mt-6 flex flex-col gap-2 rounded-2xl border border-white/20 bg-white/10 p-2 backdrop-blur sm:flex-row"
@@ -435,10 +551,11 @@ function Index() {
                   <input
                     type="email"
                     required
-                    placeholder="you@email.com"
+                    aria-label={text.notify}
+                    placeholder={text.emailPlaceholder}
                     className="min-w-0 flex-1 rounded-xl bg-transparent px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none"
                   />
-                  <button className="rounded-xl bg-[#2f74a8] px-5 py-3 text-sm font-bold text-white shadow-pink transition-colors hover:bg-[#3986bd]">
+                  <button type="submit" className="rounded-xl bg-[#2f74a8] px-5 py-3 text-sm font-bold text-white shadow-pink transition-colors hover:bg-[#3986bd]">
                     {text.earlyAccess}
                   </button>
                 </form>
@@ -456,12 +573,17 @@ function Index() {
 }
 
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const { effectiveReduceMotion } = usePreferences();
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
+    if (effectiveReduceMotion) {
+      setCount(value);
+      return;
+    }
     let frame = 0;
     const frames = 42;
     const timer = window.setInterval(() => {
@@ -470,7 +592,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
       if (frame >= frames) window.clearInterval(timer);
     }, 24);
     return () => window.clearInterval(timer);
-  }, [inView, value]);
+  }, [effectiveReduceMotion, inView, value]);
 
   return (
     <span ref={ref}>
@@ -481,10 +603,15 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
 }
 
 function ScrambleText({ text }: { text: string }) {
+  const { effectiveReduceMotion } = usePreferences();
   const chars = "TECHSQUAD01";
   const [display, setDisplay] = useState(text);
 
   useEffect(() => {
+    if (effectiveReduceMotion) {
+      setDisplay(text);
+      return;
+    }
     let frame = 0;
     const timer = window.setInterval(() => {
       frame += 1;
@@ -501,12 +628,13 @@ function ScrambleText({ text }: { text: string }) {
       if (frame > text.length * 2) window.clearInterval(timer);
     }, 35);
     return () => window.clearInterval(timer);
-  }, [text]);
+  }, [effectiveReduceMotion, text]);
 
   return <span>{display}</span>;
 }
 
 function TerminalPanel() {
+  const t = useT();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, rotateX: 8 }}
@@ -519,7 +647,7 @@ function TerminalPanel() {
         <span className="h-3 w-3 rounded-full bg-pink" />
         <span className="h-3 w-3 rounded-full bg-gold" />
         <span className="h-3 w-3 rounded-full bg-[#35b7ff]" />
-        <span className="ml-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/45">TECHSQUAD terminal</span>
+        <span className="ml-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/45">{t("terminalLabel")}</span>
       </div>
       <div className="space-y-3 pt-5 font-mono text-xs sm:text-sm">
         {terminalLines.map((line, index) => (

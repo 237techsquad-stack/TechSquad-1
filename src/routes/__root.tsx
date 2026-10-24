@@ -4,13 +4,17 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import type { ReactNode } from "react";
-import { PreferencesProvider } from "@/lib/preferences";
+import { useEffect, type ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
+import { PreferencesProvider, usePreferences, useT } from "@/lib/preferences";
 
 import appCss from "../styles.css?url";
+import faviconUrl from "../../images/logo images/logo icon.png?url";
+import organizationLogoUrl from "../../images/logo images/TechSquad Cameroon Logo.png?url";
 import {
   absolute,
   DEFAULT_DESCRIPTION,
@@ -23,19 +27,31 @@ import {
 
 function NotFoundComponent() {
   return (
+    <PreferencesProvider>
+      <NotFoundContent />
+    </PreferencesProvider>
+  );
+}
+
+function NotFoundContent() {
+  const t = useT();
+  useEffect(() => {
+    document.title = t("titleNotFound");
+  }, [t]);
+  return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">{t("pageNotFound")}</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you are looking for does not exist or has been moved.
+          {t("missingPageMessage")}
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            {t("goHome")}
           </Link>
         </div>
       </div>
@@ -46,13 +62,31 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  return (
+    <PreferencesProvider>
+      <ErrorContent router={router} reset={reset} />
+    </PreferencesProvider>
+  );
+}
+
+function ErrorContent({
+  router,
+  reset,
+}: {
+  router: ReturnType<typeof useRouter>;
+  reset: () => void;
+}) {
+  const t = useT();
+  useEffect(() => {
+    document.title = t("pageLoadError");
+  }, [t]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page did not load</h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">{t("pageLoadError")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          {t("pageLoadErrorMessage")}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -62,13 +96,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            {t("tryAgain")}
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            {t("goHome")}
           </a>
         </div>
       </div>
@@ -108,7 +142,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: faviconUrl, type: "image/png" },
       { rel: "canonical", href: "https://techsquad-cameroon.netlify.app/" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -138,7 +172,7 @@ function RootShell({ children }: { children: ReactNode }) {
               name: SITE_NAME,
               description: DEFAULT_DESCRIPTION,
               url: SITE_URL,
-              logo: absolute('/images/logo-full.png'),
+              logo: absolute(organizationLogoUrl),
               sameAs: ["https://twitter.com/TechSquadCam"],
               contactPoint: [
                 {
@@ -167,8 +201,78 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <PreferencesProvider>
-        <Outlet />
+        <LocalizedDocumentTitle />
+        <AccessibilityMotion>
+          <Outlet />
+        </AccessibilityMotion>
       </PreferencesProvider>
     </QueryClientProvider>
+  );
+}
+
+function LocalizedDocumentTitle() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const t = useT();
+  const pageMetadata = {
+    "/": ["titleHome", "descriptionHome"],
+    "/about": ["titleAbout", "descriptionAbout"],
+    "/services": ["titleServices", "descriptionServices"],
+    "/projects": ["titleProjects", "descriptionProjects"],
+    "/members": ["titleTeam", "descriptionTeam"],
+    "/contact": ["titleContact", "descriptionContact"],
+  } as const;
+  const [titleKey, descriptionKey] =
+    pageMetadata[pathname as keyof typeof pageMetadata] ?? ["titleNotFound", "descriptionNotFound"];
+  const title = t(titleKey);
+  const description = t(descriptionKey);
+
+  useEffect(() => {
+    const applyMetadata = () => {
+      if (document.title !== title) document.title = title;
+      for (const selector of [
+        'meta[name="description"]',
+        'meta[property="og:description"]',
+        'meta[name="twitter:description"]',
+      ]) {
+        const meta = document.head.querySelector<HTMLMetaElement>(selector);
+        if (meta && meta.content !== description) meta.content = description;
+      }
+      for (const selector of [
+        'meta[property="og:title"]',
+        'meta[name="twitter:title"]',
+      ]) {
+        const meta = document.head.querySelector<HTMLMetaElement>(selector);
+        if (meta && meta.content !== title) meta.content = title;
+      }
+      for (const selector of [
+        'meta[property="og:image:alt"]',
+        'meta[name="twitter:image:alt"]',
+      ]) {
+        const meta = document.head.querySelector<HTMLMetaElement>(selector);
+        const alt = t("brandPreviewAlt");
+        if (meta && meta.content !== alt) meta.content = alt;
+      }
+    };
+    applyMetadata();
+    const observer = new MutationObserver(applyMetadata);
+    observer.observe(document.head, {
+      attributes: true,
+      attributeFilter: ["content"],
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+    return () => observer.disconnect();
+  }, [description, t, title]);
+
+  return null;
+}
+
+function AccessibilityMotion({ children }: { children: ReactNode }) {
+  const { effectiveReduceMotion } = usePreferences();
+  return (
+    <MotionConfig reducedMotion={effectiveReduceMotion ? "always" : "never"}>
+      {children}
+    </MotionConfig>
   );
 }

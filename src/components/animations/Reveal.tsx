@@ -1,5 +1,6 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
+import { usePreferences } from "@/lib/preferences";
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
@@ -17,15 +18,16 @@ export function Reveal({
   className?: string;
   as?: "div" | "section" | "span" | "li";
 }) {
+  const { effectiveReduceMotion } = usePreferences();
   const MotionTag = motion[as] as typeof motion.div;
   return (
     <MotionTag
       className={className}
-      initial="hidden"
-      whileInView="show"
+      initial={effectiveReduceMotion ? false : "hidden"}
+      whileInView={effectiveReduceMotion ? undefined : "show"}
       viewport={{ once: true, margin: "-80px" }}
       variants={variants}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={effectiveReduceMotion ? { duration: 0 } : { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </MotionTag>
@@ -43,15 +45,21 @@ export function Stagger({
   delayChildren?: number;
   stagger?: number;
 }) {
+  const { effectiveReduceMotion } = usePreferences();
   return (
     <motion.div
       className={className}
-      initial="hidden"
-      whileInView="show"
+      initial={effectiveReduceMotion ? false : "hidden"}
+      whileInView={effectiveReduceMotion ? undefined : "show"}
       viewport={{ once: true, margin: "-80px" }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren } },
+        show: {
+          transition: {
+            staggerChildren: effectiveReduceMotion ? 0 : stagger,
+            delayChildren: effectiveReduceMotion ? 0 : delayChildren,
+          },
+        },
       }}
     >
       {children}
@@ -60,7 +68,7 @@ export function Stagger({
 }
 
 export function ScrambleText({ text, className }: { text: string; className?: string }) {
-  const shouldReduceMotion = useReducedMotion();
+  const { effectiveReduceMotion: shouldReduceMotion } = usePreferences();
   const [display, setDisplay] = useState(text);
 
   useEffect(() => {
